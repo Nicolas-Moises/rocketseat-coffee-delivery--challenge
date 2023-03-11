@@ -3,10 +3,26 @@ import confirmedOrder from '../../assets/confirmed-order.svg'
 import { LabelWithIcon } from "../../components/LabelWithIcon";
 import { CurrencyDollar, MapPin, Timer } from "phosphor-react";
 import { useTheme } from "styled-components";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+
+
 
 export function OrderCompletedSuccess() {
     const { colors } = useTheme();
 
+    const { state } = useLocation();
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (!state) {
+            navigate('/')
+        }
+    }, [])
+
+    if (!state) {
+        return <></>
+    }
     return (
         <OrderCompletedSuccessContainer>
             <div>
@@ -25,10 +41,10 @@ export function OrderCompletedSuccess() {
                             <p>
                                 Entrega em
                                 <strong>
-                                    {' '}Rua João Daniel Martinelli, 102
+                                    {' '}{state.street}, {state.number}
                                 </strong>
                                 <br />
-                                Farrapos - Porto Alegre, RS
+                                {state.neighborhood} - {state.city}, {state.uf}
                             </p>
                         }
                     />
@@ -51,7 +67,7 @@ export function OrderCompletedSuccess() {
                             <p>
                                 Pagamento na entrega<br />
                                 <strong>
-                                    {' '}Cartão de Crédito
+                                    {' '}{state.billing}
                                 </strong>
                             </p>
                         }

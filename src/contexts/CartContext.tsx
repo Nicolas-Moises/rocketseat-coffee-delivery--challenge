@@ -14,6 +14,7 @@ type CartContextType = {
     addItemsToCart: (coffee: CartItem) => void;
     checkoutHandleItemsAmount: (coffeeId: number, type: 'addItem' | 'removeItem') => void;
     deleteCardFromCart: (cardId: number) => void;
+    clearCart: () => void
 }
 
 type CartContextProvider = {
@@ -40,6 +41,10 @@ export function CartContextProvider({ children }: CartContextProvider) {
         return total + cartItem.price * cartItem.amount
     }, 0)
     const cartAmountNumber = cartItems.length;
+
+    function clearCart() {
+        setCartItems([]);
+    }
 
     function addItemsToCart(coffee: CartItem) {
         const coffeeAlreadyExistsInCart = cartItems.findIndex((cartItem) =>
@@ -97,7 +102,8 @@ export function CartContextProvider({ children }: CartContextProvider) {
             cartAmountNumber,
             checkoutHandleItemsAmount,
             deleteCardFromCart,
-            cartValueTotal
+            cartValueTotal,
+            clearCart
         }}>
             {children}
         </CartContext.Provider>

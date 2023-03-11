@@ -1,25 +1,26 @@
 import { forwardRef, InputHTMLAttributes } from "react";
 import { useFormContext } from "react-hook-form";
-import { FieldInputLabel, InputStyleContainer } from "./styles";
+import { FieldInputLabel, InputComponent, InputFieldContainer, TextInsideInput } from "./styles";
 
 type InputProps = InputHTMLAttributes<HTMLInputElement> & {
-    error?: string
+    error?: string;
+    textInside?: string
 };
 
 
-
 export const Input = forwardRef<HTMLInputElement, InputProps>(
-    ({ error, ...props }, ref) => {
-
-        const { formState: { errors } } = useFormContext()
+    ({ error, className, textInside, ...props }, ref) => {
 
         return (
-            <FieldInputLabel>
-                <InputStyleContainer {...props} ref={ref} />
+            <FieldInputLabel className={className}>
+                <InputFieldContainer hasErrors={!!error}>
+                    <InputComponent {...props} ref={ref} />
+                    {textInside && <TextInsideInput>{textInside}</TextInsideInput>}
+                </InputFieldContainer>
                 {error &&
-                    <span>
+                    <p>
                         {error}
-                    </span>}
+                    </p>}
 
             </FieldInputLabel>
 

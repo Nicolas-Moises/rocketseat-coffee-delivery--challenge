@@ -30,16 +30,16 @@ export const AddressFormContainer = styled.div`
     grid-auto-flow: dense;
 
     .cep {
-        grid-column: span 3;
+        grid-column: span 3 !important; 
         max-width: 12.5rem;
     }
 
     .street {
-        grid-column: span 3;
+        grid-column: span 3 !important;
     }
 
     .complement {
-        grid-column: span 2;
+        grid-column: span 2 !important;
     }
 `
 
